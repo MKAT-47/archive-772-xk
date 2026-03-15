@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DC Universe — Character Codex</title>
+<title>DC Universe — Character Codex v22.1</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
 
@@ -11,201 +11,188 @@
   --ink:       #0d0b0f;
   --ink2:      #1a1520;
   --ink3:      #251e2d;
-  --ink4:      #2e2640;
   --gold:      #c9a84c;
   --gold2:     #e8c96a;
   --gold3:     #f5e0a0;
-  --crimson:   #8b1a2e;
-  --crimson2:  #b02240;
-  --purple:    #4a2d6b;
-  --purple2:   #6b4a9b;
   --mist:      #b8b0c8;
   --mist2:     #d4cde0;
   --mist3:     #ede8f2;
-  --potential: #b8820a;
-  --potential2:#f0b030;
-  --active-glow: 0 0 20px rgba(201,168,76,0.15);
-  --sidebar-w: 280px;
+  --sidebar-w: 300px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; overflow: hidden; }
-body {
-  font-family: 'Crimson Pro', Georgia, serif;
-  background: var(--ink);
-  color: var(--mist2);
-  display: flex;
-  flex-direction: column;
-}
+body { font-family: 'Crimson Pro', serif; background: var(--ink); color: var(--mist2); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
 /* TOPBAR */
-#topbar {
-  flex-shrink: 0; height: 52px;
-  background: linear-gradient(90deg, var(--ink) 0%, var(--ink2) 50%, var(--ink) 100%);
-  border-bottom: 1px solid rgba(201,168,76,0.3);
-  display: flex; align-items: center; padding: 0 20px; gap: 16px; position: relative; z-index: 100;
-}
-.topbar-title { font-family: 'Cinzel Decorative', serif; font-size: 13px; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; flex: 1; }
-.topbar-title span { color: var(--mist); font-family: 'Cinzel', serif; font-size: 11px; font-weight: 400; letter-spacing: 0.2em; }
-.tb-btn { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.12em; padding: 6px 14px; border: 1px solid rgba(201,168,76,0.35); background: rgba(201,168,76,0.07); color: var(--gold); cursor: pointer; transition: all 0.2s; text-transform: uppercase; }
-.tb-btn:hover { background: rgba(201,168,76,0.18); border-color: var(--gold); }
+#topbar { flex-shrink: 0; height: 56px; background: var(--ink2); border-bottom: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; padding: 0 20px; gap: 16px; }
+.topbar-title { font-family: 'Cinzel Decorative', serif; font-size: 14px; color: var(--gold); letter-spacing: 0.1em; flex: 1; }
+.tb-btn { font-family: 'Cinzel', serif; font-size: 10px; padding: 6px 12px; border: 1px solid var(--gold); background: rgba(201,168,76,0.1); color: var(--gold2); cursor: pointer; text-transform: uppercase; }
 
-/* MAIN APP LAYOUT */
+/* MAIN LAYOUT */
 #app { flex: 1; display: flex; overflow: hidden; }
+#sidebar { width: var(--sidebar-w); background: var(--ink2); border-right: 1px solid rgba(201,168,76,0.15); display: flex; flex-direction: column; }
+#main { flex: 1; overflow-y: auto; background: var(--ink); padding: 40px; }
 
-#sidebar {
-  width: var(--sidebar-w); flex-shrink: 0; background: var(--ink2);
-  border-right: 1px solid rgba(201,168,76,0.15); display: flex; flex-direction: column; overflow: hidden;
-}
+/* CHARACTER LIST */
+.char-item { padding: 12px 18px; border-bottom: 1px solid rgba(201,168,76,0.05); cursor: pointer; transition: 0.2s; }
+.char-item:hover { background: rgba(201,168,76,0.05); }
+.char-item.selected { border-left: 3px solid var(--gold); background: rgba(201,168,76,0.1); }
+.ci-name { font-family: 'Cinzel', serif; font-size: 12px; color: var(--mist3); }
 
-#char-list { flex: 1; overflow-y: auto; padding: 6px 0; }
-.char-item { padding: 9px 14px; cursor: pointer; border-left: 2px solid transparent; transition: all 0.15s; }
-.char-item:hover { background: rgba(201,168,76,0.06); border-left-color: rgba(201,168,76,0.3); }
-.char-item.selected { background: rgba(201,168,76,0.12); border-left-color: var(--gold); }
+/* DOSSIER STYLING */
+.v-section { margin-bottom: 32px; border: 1px solid rgba(201,168,76,0.15); }
+.v-section-title { font-family: 'Cinzel', serif; font-size: 10px; color: var(--gold); background: rgba(201,168,76,0.07); padding: 10px 15px; border-bottom: 1px solid rgba(201,168,76,0.15); text-transform: uppercase; letter-spacing: 0.15em; }
+.v-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; background: rgba(201,168,76,0.1); }
+.v-field { background: var(--ink); padding: 12px 15px; }
+.v-label { font-family: 'Cinzel', serif; font-size: 9px; color: var(--gold2); margin-bottom: 5px; opacity: 0.8; letter-spacing: 0.05em; }
+.v-value { font-size: 14px; line-height: 1.6; color: var(--mist3); white-space: pre-wrap; }
 
-/* CHARACTER VIEW - HIGH DENSITY */
-#main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--ink); }
-.v-section { margin-bottom: 24px; border: 1px solid rgba(201,168,76,0.1); background: rgba(0,0,0,0.1); }
-.v-section-title { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.15em; color: var(--gold); padding: 8px 12px; background: rgba(201,168,76,0.05); border-bottom: 1px solid rgba(201,168,76,0.1); text-transform: uppercase; }
-.v-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: rgba(201,168,76,0.1); }
-.v-field { background: var(--ink); padding: 10px 12px; }
-.v-label { font-family: 'Cinzel', serif; font-size: 8.5px; letter-spacing: 0.08em; color: var(--gold2); text-transform: uppercase; margin-bottom: 4px; opacity: 0.7; }
-.v-value { font-size: 13px; line-height: 1.5; color: var(--mist3); }
-.v-value.bio-block { font-family: 'Crimson Pro', serif; font-style: normal; white-space: pre-wrap; font-size: 14px; }
+/* SPECIAL BIO FIELD */
+.bio-highlight { background: rgba(201,168,76,0.03) !important; border-left: 2px solid var(--gold2); }
 
-/* RECENT MODS & PINNED */
-.pinned-item { border-left: 2px solid var(--gold) !important; }
-
+/* MODAL */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { background: var(--ink2); border: 1px solid var(--gold); width: 800px; max-height: 90vh; overflow-y: auto; padding: 30px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.form-field { margin-bottom: 15px; }
+label { display: block; font-family: 'Cinzel', serif; font-size: 10px; color: var(--gold); margin-bottom: 5px; }
+input, textarea { width: 100%; background: var(--ink3); border: 1px solid rgba(201,168,76,0.3); color: var(--mist2); padding: 8px; font-family: inherit; }
 </style>
 </head>
 <body>
 
 <div id="topbar">
-  <div class="topbar-title">DC Universe <span>◈ Master Codex v22.1</span></div>
-  <button class="tb-btn" onclick="triggerImport()">Import</button>
-  <button class="tb-btn" onclick="exportData()">Export</button>
-  <button class="tb-btn" onclick="openAiPanel()">✦ AI Tools</button>
+  <div class="topbar-title">DC UNIVERSE ◈ CHARACTER CODEX <span style="font-size:10px; opacity:0.6;">v22.1</span></div>
+  <button class="tb-btn" onclick="openModal()">+ Add Character</button>
+  <button class="tb-btn" onclick="exportData()">Export JSON</button>
 </div>
 
 <div id="app">
   <aside id="sidebar">
-    <div id="sidebar-head">
-      <input type="text" id="search" placeholder="Search characters..." oninput="renderSidebar()">
+    <div style="padding:15px; border-bottom:1px solid rgba(201,168,76,0.1);">
+      <input type="text" id="search" placeholder="Search characters..." oninput="renderSidebar()" style="width:100%;">
     </div>
-    <div id="char-list"></div>
-    <div id="sidebar-foot">
-      <button id="btn-add" onclick="openNewCharModal()">+ Add Character</button>
-    </div>
+    <div id="char-list" style="overflow-y:auto; flex:1;"></div>
   </aside>
 
   <main id="main">
-    <div id="char-view" style="display:none; overflow-y:auto; padding:30px;">
-      <div id="hero-header" style="margin-bottom:30px; border-bottom:2px solid var(--gold); padding-bottom:15px;">
-        <h1 id="v-full-name" style="font-family:'Cinzel', serif; color:var(--gold2);"></h1>
-        <div id="v-aliases" style="font-style:italic; color:var(--mist);"></div>
-      </div>
+    <div id="dossier-view" style="display:none;">
+      <h1 id="v-name" style="font-family:'Cinzel', serif; color:var(--gold); margin-bottom:5px;"></h1>
+      <p id="v-alias" style="font-style:italic; color:var(--mist); margin-bottom:30px;"></p>
       
-      <div id="v-content-area"></div>
+      <div id="v-content"></div>
     </div>
     
-    <div id="empty-state">
-      <div class="empty-sigil">◈</div>
-      <div class="empty-text">Select a Character to View Dossier</div>
+    <div id="empty-state" style="text-align:center; margin-top:100px; opacity:0.3;">
+      <div style="font-size:48px;">◈</div>
+      <div style="font-family:'Cinzel', serif; letter-spacing:3px;">Select Dossier</div>
     </div>
   </main>
 </div>
 
-<script>
-// STORAGE & DATA
-let characters = JSON.parse(localStorage.getItem('dc_codex_v5')) || [];
-let currentCharId = null;
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <h2 style="font-family:'Cinzel', serif; color:var(--gold2); margin-bottom:20px;">Character Entry</h2>
+    <div class="form-grid">
+      <div class="form-field"><label>First Name</label><input type="text" id="f-first"></div>
+      <div class="form-field"><label>Surname</label><input type="text" id="f-surname"></div>
+      <div class="form-field"><label>Aliases</label><input type="text" id="f-alias"></div>
+      <div class="form-field"><label>Moral Alignment</label><input type="text" id="f-align"></div>
+    </div>
+    <div class="form-field"><label>Background / Lore</label><textarea id="f-lore" rows="4"></textarea></div>
+    <div class="form-field"><label>Additional Detail(s)</label><textarea id="f-details" rows="2"></textarea></div>
+    <div class="form-field"><label style="color:var(--gold3);">Brief Character Bio (High-Density Summary)</label><textarea id="f-brief" rows="3" placeholder="Enter high-density bio here..."></textarea></div>
+    <div class="form-field"><label>Link To Google Docs Page of Character</label><input type="text" id="f-link"></div>
+    <div style="display:flex; gap:10px; margin-top:20px;">
+      <button class="tb-btn" style="flex:1;" onclick="saveCharacter()">Save Dossier</button>
+      <button class="tb-btn" style="background:rgba(200,50,50,0.1); border-color:rgba(200,50,50,0.5);" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
 
-function save() {
-  localStorage.setItem('dc_codex_v5', JSON.stringify(characters));
+<script>
+let characters = JSON.parse(localStorage.getItem('dc_codex_v22')) || [];
+let currentId = null;
+
+function saveToStorage() {
+  localStorage.setItem('dc_codex_v22', JSON.stringify(characters));
 }
 
-// RENDERING
 function renderSidebar() {
+  const query = document.getElementById('search').value.toLowerCase();
   const list = document.getElementById('char-list');
-  const q = document.getElementById('search').value.toLowerCase();
-  
   list.innerHTML = characters
-    .filter(c => {
-      const name = `${c.firstName} ${c.surname} ${c.aliases}`.toLowerCase();
-      return name.includes(q);
-    })
+    .filter(c => `${c.first} ${c.surname} ${c.alias}`.toLowerCase().includes(query))
     .map(c => `
-      <div class="char-item ${c.id === currentCharId ? 'selected' : ''}" onclick="selectChar('${c.id}')">
-        <div class="ci-name">${c.firstName || 'Unnamed'} ${c.surname || ''}</div>
-        <div class="ci-meta">${c.alignment || 'Unknown Alignment'} | ${c.status || 'Active'}</div>
+      <div class="char-item ${c.id === currentId ? 'selected' : ''}" onclick="selectChar('${c.id}')">
+        <div class="ci-name">${c.first} ${c.surname}</div>
+        <div style="font-size:10px; opacity:0.6;">${c.alias || 'No Alias'}</div>
       </div>
     `).join('');
 }
 
 function selectChar(id) {
-  currentCharId = id;
-  const char = characters.find(c => c.id === id);
-  renderSidebar();
-  renderCharView(char);
-}
-
-function renderCharView(c) {
+  currentId = id;
+  const c = characters.find(x => x.id === id);
   document.getElementById('empty-state').style.display = 'none';
-  document.getElementById('char-view').style.display = 'block';
+  document.getElementById('dossier-view').style.display = 'block';
+  document.getElementById('v-name').textContent = `${c.first} ${c.surname}`;
+  document.getElementById('v-alias').textContent = c.alias ? `Known as: ${c.alias}` : '';
   
-  document.getElementById('v-full-name').textContent = `${c.firstName || ''} ${c.surname || ''}`;
-  document.getElementById('v-aliases').textContent = c.aliases ? `Known as: ${c.aliases}` : '';
+  const field = (label, val) => val ? `<div class="v-field"><div class="v-label">${label}</div><div class="v-value">${val}</div></div>` : '';
+  const fullField = (label, val, extraClass = '') => val ? `<div class="v-field ${extraClass}" style="grid-column: 1 / -1;"><div class="v-label">${label}</div><div class="v-value">${val}</div></div>` : '';
 
-  const f = (label, val) => val ? `
-    <div class="v-field">
-      <div class="v-label">${label}</div>
-      <div class="v-value">${val}</div>
-    </div>` : '';
-
-  const html = `
+  document.getElementById('v-content').innerHTML = `
     <div class="v-section">
-      <div class="v-section-title">◈ Vital Statistics</div>
+      <div class="v-section-title">◈ Narrative Lore & Identity</div>
       <div class="v-grid">
-        ${f('Moral Alignment', c.alignment)}
-        ${f('Status', c.status)}
-        ${f('Occupation', c.occupation)}
-        ${f('Base of Operations', c.city)}
-      </div>
-    </div>
-
-    <div class="v-section">
-      <div class="v-section-title">◈ Character Background & Narrative Lore</div>
-      <div class="v-field">
-        <div class="v-label">Full Background Lore</div>
-        <div class="v-value bio-block">${c.lore || 'No lore recorded.'}</div>
-      </div>
-      <div class="v-field">
-        <div class="v-label">Additional Detail(s)</div>
-        <div class="v-value">${c.additionalDetails || 'N/A'}</div>
-      </div>
-      <div class="v-field" style="background: rgba(201,168,76,0.05); border-top: 1px solid rgba(201,168,76,0.2);">
-        <div class="v-label" style="color:var(--gold3);">Brief Character Bio:</div>
-        <div class="v-value bio-block" style="font-weight:600;">${c.briefBio || 'Awaiting high-density summary...'}</div>
-      </div>
-      <div class="v-field">
-        <div class="v-label">Link To Google Docs Page of Character</div>
-        <div class="v-value">${c.docsLink ? `<a href="${c.docsLink}" target="_blank" style="color:var(--gold2);">Open Documentation →</a>` : 'No link provided.'}</div>
-      </div>
-    </div>
-
-    <div class="v-section">
-      <div class="v-section-title">◈ Power Profile & Capabilities</div>
-      <div class="v-grid">
-        ${f('Power Type', c.powerType)}
-        ${f('Abilities', c.powers)}
+        ${field('Alignment', c.align)}
+        ${fullField('Full Background Lore', c.lore)}
+        ${fullField('Additional Detail(s)', c.details)}
+        ${fullField('Brief Character Bio:', c.brief, 'bio-highlight')}
+        ${fullField('Link To Google Docs Page of Character', c.link ? `<a href="${c.link}" target="_blank" style="color:var(--gold2);">Open Document →</a>` : 'Not Linked')}
       </div>
     </div>
   `;
-  
-  document.getElementById('v-content-area').innerHTML = html;
+  renderSidebar();
 }
 
-// INITIALISATION
+function openModal() { document.getElementById('modal').style.display = 'flex'; }
+function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+function saveCharacter() {
+  const data = {
+    id: currentId || Date.now().toString(),
+    first: document.getElementById('f-first').value,
+    surname: document.getElementById('f-surname').value,
+    alias: document.getElementById('f-alias').value,
+    align: document.getElementById('f-align').value,
+    lore: document.getElementById('f-lore').value,
+    details: document.getElementById('f-details').value,
+    brief: document.getElementById('f-brief').value,
+    link: document.getElementById('f-link').value
+  };
+
+  const index = characters.findIndex(x => x.id === data.id);
+  if (index > -1) characters[index] = data;
+  else characters.push(data);
+
+  saveToStorage();
+  closeModal();
+  renderSidebar();
+  selectChar(data.id);
+}
+
+function exportData() {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(characters));
+  const downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute("href", dataStr);
+  downloadAnchor.setAttribute("download", "dc_codex_export.json");
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
+}
+
 renderSidebar();
 </script>
 </body>
