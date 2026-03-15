@@ -12497,6 +12497,55 @@ else showCharEmpty();
     </div>
   </div>
 </div>
+   
 
 </body>
 </html>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Codex Brain Online");
+
+    // 1. Sidebar Toggle & Main Menu Logic
+    const sidebar = document.getElementById('sidebar');
+    const heroPanel = document.getElementById('hero');
+    const viewTabs = document.getElementById('view-tabs');
+    const viewContent = document.getElementById('view-content');
+    const emptyState = document.getElementById('empty-state');
+
+    // 2. Add Character Button Logic
+    const btnAdd = document.getElementById('btn-add');
+    const modal = document.getElementById('modal-overlay');
+    
+    if(btnAdd) {
+        btnAdd.onclick = () => {
+            modal.classList.add('open');
+            console.log("Opening Character Entry Form...");
+        };
+    }
+
+    // 3. Modal Close Logic
+    const modalClose = document.getElementById('modal-close');
+    if(modalClose) {
+        modalClose.onclick = () => modal.classList.remove('open');
+    }
+
+    // 4. Global Search Activation (Alt+F or Search Bar)
+    const searchInput = document.getElementById('search');
+    if(searchInput) {
+        searchInput.oninput = (e) => {
+            console.log("Searching for: " + e.target.value);
+            // Logic for filtering the list goes here
+        };
+    }
+
+    // 5. Initialisation check
+    // This removes the 'Empty State' if data is found
+    if (localStorage.getItem('dc_codex_data')) {
+        if(emptyState) emptyState.style.display = 'none';
+        if(heroPanel) heroPanel.style.display = 'block';
+        if(viewTabs) viewTabs.style.display = 'flex';
+        if(viewContent) viewContent.style.display = 'block';
+    }
+});
+</script>
+</body>
