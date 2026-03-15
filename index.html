@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DC Universe — Character Codex v22.1</title>
+<title>DC Universe — Character Codex v22.2</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
 
@@ -24,88 +24,93 @@
 body { font-family: 'Crimson Pro', serif; background: var(--ink); color: var(--mist2); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
 /* TOPBAR */
-#topbar { flex-shrink: 0; height: 56px; background: var(--ink2); border-bottom: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; padding: 0 20px; gap: 16px; }
+#topbar { flex-shrink: 0; height: 56px; background: var(--ink2); border-bottom: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; padding: 0 20px; gap: 16px; position: relative; }
+#topbar::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
 .topbar-title { font-family: 'Cinzel Decorative', serif; font-size: 14px; color: var(--gold); letter-spacing: 0.1em; flex: 1; }
-.tb-btn { font-family: 'Cinzel', serif; font-size: 10px; padding: 6px 12px; border: 1px solid var(--gold); background: rgba(201,168,76,0.1); color: var(--gold2); cursor: pointer; text-transform: uppercase; }
+.tb-btn { font-family: 'Cinzel', serif; font-size: 10px; padding: 6px 14px; border: 1px solid var(--gold); background: rgba(201,168,76,0.1); color: var(--gold2); cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em; transition: 0.2s; }
+.tb-btn:hover { background: rgba(201,168,76,0.2); }
 
 /* MAIN LAYOUT */
 #app { flex: 1; display: flex; overflow: hidden; }
 #sidebar { width: var(--sidebar-w); background: var(--ink2); border-right: 1px solid rgba(201,168,76,0.15); display: flex; flex-direction: column; }
-#main { flex: 1; overflow-y: auto; background: var(--ink); padding: 40px; }
+#main { flex: 1; overflow-y: auto; background: var(--ink); padding: 40px; position: relative; }
 
 /* CHARACTER LIST */
-.char-item { padding: 12px 18px; border-bottom: 1px solid rgba(201,168,76,0.05); cursor: pointer; transition: 0.2s; }
-.char-item:hover { background: rgba(201,168,76,0.05); }
-.char-item.selected { border-left: 3px solid var(--gold); background: rgba(201,168,76,0.1); }
-.ci-name { font-family: 'Cinzel', serif; font-size: 12px; color: var(--mist3); }
+.char-item { padding: 14px 18px; border-bottom: 1px solid rgba(201,168,76,0.05); cursor: pointer; transition: 0.2s; border-left: 2px solid transparent; }
+.char-item:hover { background: rgba(201,168,76,0.05); border-left-color: rgba(201,168,76,0.3); }
+.char-item.selected { border-left-color: var(--gold); background: rgba(201,168,76,0.1); }
+.ci-name { font-family: 'Cinzel', serif; font-size: 12px; color: var(--mist3); letter-spacing: 0.05em; }
 
 /* DOSSIER STYLING */
-.v-section { margin-bottom: 32px; border: 1px solid rgba(201,168,76,0.15); }
-.v-section-title { font-family: 'Cinzel', serif; font-size: 10px; color: var(--gold); background: rgba(201,168,76,0.07); padding: 10px 15px; border-bottom: 1px solid rgba(201,168,76,0.15); text-transform: uppercase; letter-spacing: 0.15em; }
-.v-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; background: rgba(201,168,76,0.1); }
-.v-field { background: var(--ink); padding: 12px 15px; }
-.v-label { font-family: 'Cinzel', serif; font-size: 9px; color: var(--gold2); margin-bottom: 5px; opacity: 0.8; letter-spacing: 0.05em; }
-.v-value { font-size: 14px; line-height: 1.6; color: var(--mist3); white-space: pre-wrap; }
+.v-section { margin-bottom: 32px; border: 1px solid rgba(201,168,76,0.15); background: rgba(255,255,255,0.01); }
+.v-section-title { font-family: 'Cinzel', serif; font-size: 10px; color: var(--gold); background: rgba(201,168,76,0.07); padding: 12px 15px; border-bottom: 1px solid rgba(201,168,76,0.15); text-transform: uppercase; letter-spacing: 0.15em; }
+.v-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(201,168,76,0.1); }
+.v-field { background: var(--ink); padding: 15px; }
+.v-field.full { grid-column: span 3; }
+.v-label { font-family: 'Cinzel', serif; font-size: 9px; color: var(--gold2); margin-bottom: 6px; opacity: 0.8; letter-spacing: 0.1em; text-transform: uppercase; }
+.v-value { font-size: 15px; line-height: 1.7; color: var(--mist3); white-space: pre-wrap; }
 
-/* SPECIAL BIO FIELD */
-.bio-highlight { background: rgba(201,168,76,0.03) !important; border-left: 2px solid var(--gold2); }
+/* BIO CALLOUT */
+.bio-header { font-family: 'Cinzel', serif; font-weight: 700; color: var(--gold3); margin-bottom: 8px; display: block; border-bottom: 1px solid rgba(245,224,160,0.2); padding-bottom: 4px; }
 
-/* MODAL */
-.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; }
-.modal-content { background: var(--ink2); border: 1px solid var(--gold); width: 800px; max-height: 90vh; overflow-y: auto; padding: 30px; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-.form-field { margin-bottom: 15px; }
-label { display: block; font-family: 'Cinzel', serif; font-size: 10px; color: var(--gold); margin-bottom: 5px; }
-input, textarea { width: 100%; background: var(--ink3); border: 1px solid rgba(201,168,76,0.3); color: var(--mist2); padding: 8px; font-family: inherit; }
+/* MODAL & FORMS */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 1000; }
+.modal-content { background: var(--ink2); border: 1px solid var(--gold); width: 850px; max-height: 90vh; overflow-y: auto; padding: 40px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+label { display: block; font-family: 'Cinzel', serif; font-size: 10px; color: var(--gold); margin-bottom: 8px; letter-spacing: 0.1em; }
+input, textarea { width: 100%; background: var(--ink3); border: 1px solid rgba(201,168,76,0.3); color: var(--mist2); padding: 12px; font-family: inherit; font-size: 14px; }
+input:focus, textarea:focus { border-color: var(--gold); outline: none; }
 </style>
 </head>
 <body>
 
 <div id="topbar">
-  <div class="topbar-title">DC UNIVERSE ◈ CHARACTER CODEX <span style="font-size:10px; opacity:0.6;">v22.1</span></div>
+  <div class="topbar-title">DC UNIVERSE ◈ MASTER CODEX <span style="font-size:10px; opacity:0.6;">v22.2</span></div>
   <button class="tb-btn" onclick="openModal()">+ Add Character</button>
-  <button class="tb-btn" onclick="exportData()">Export JSON</button>
+  <button class="tb-btn" onclick="exportData()">💾 Export JSON</button>
 </div>
 
 <div id="app">
   <aside id="sidebar">
-    <div style="padding:15px; border-bottom:1px solid rgba(201,168,76,0.1);">
-      <input type="text" id="search" placeholder="Search characters..." oninput="renderSidebar()" style="width:100%;">
+    <div style="padding:15px; background: rgba(0,0,0,0.2);">
+      <input type="text" id="search" placeholder="Search archives..." oninput="renderSidebar()" style="width:100%; font-size:12px;">
     </div>
     <div id="char-list" style="overflow-y:auto; flex:1;"></div>
   </aside>
 
   <main id="main">
     <div id="dossier-view" style="display:none;">
-      <h1 id="v-name" style="font-family:'Cinzel', serif; color:var(--gold); margin-bottom:5px;"></h1>
-      <p id="v-alias" style="font-style:italic; color:var(--mist); margin-bottom:30px;"></p>
+      <div style="border-left: 4px solid var(--gold); padding-left: 20px; margin-bottom: 40px;">
+        <h1 id="v-name" style="font-family:'Cinzel Decorative', serif; font-size: 32px; color:var(--gold); letter-spacing: 2px;"></h1>
+        <p id="v-alias" style="font-family:'Cinzel', serif; font-size: 14px; color:var(--mist); text-transform: uppercase; letter-spacing: 3px;"></p>
+      </div>
       
       <div id="v-content"></div>
     </div>
     
-    <div id="empty-state" style="text-align:center; margin-top:100px; opacity:0.3;">
-      <div style="font-size:48px;">◈</div>
-      <div style="font-family:'Cinzel', serif; letter-spacing:3px;">Select Dossier</div>
+    <div id="empty-state" style="text-align:center; margin-top:150px; opacity:0.2;">
+      <div style="font-size:80px; margin-bottom: 20px;">◈</div>
+      <div style="font-family:'Cinzel', serif; letter-spacing:5px; text-transform: uppercase;">Awaiting Dossier Selection</div>
     </div>
   </main>
 </div>
 
 <div id="modal" class="modal">
   <div class="modal-content">
-    <h2 style="font-family:'Cinzel', serif; color:var(--gold2); margin-bottom:20px;">Character Entry</h2>
+    <h2 style="font-family:'Cinzel', serif; color:var(--gold2); margin-bottom:30px; border-bottom: 1px solid var(--gold); padding-bottom: 10px; letter-spacing: 2px;">CHARACTER ENTRY</h2>
     <div class="form-grid">
-      <div class="form-field"><label>First Name</label><input type="text" id="f-first"></div>
-      <div class="form-field"><label>Surname</label><input type="text" id="f-surname"></div>
-      <div class="form-field"><label>Aliases</label><input type="text" id="f-alias"></div>
-      <div class="form-field"><label>Moral Alignment</label><input type="text" id="f-align"></div>
+      <div><label>First Name</label><input type="text" id="f-first"></div>
+      <div><label>Surname</label><input type="text" id="f-surname"></div>
+      <div><label>Aliases</label><input type="text" id="f-alias"></div>
+      <div><label>Moral Alignment</label><input type="text" id="f-align"></div>
     </div>
-    <div class="form-field"><label>Background / Lore</label><textarea id="f-lore" rows="4"></textarea></div>
-    <div class="form-field"><label>Additional Detail(s)</label><textarea id="f-details" rows="2"></textarea></div>
-    <div class="form-field"><label style="color:var(--gold3);">Brief Character Bio (High-Density Summary)</label><textarea id="f-brief" rows="3" placeholder="Enter high-density bio here..."></textarea></div>
-    <div class="form-field"><label>Link To Google Docs Page of Character</label><input type="text" id="f-link"></div>
-    <div style="display:flex; gap:10px; margin-top:20px;">
-      <button class="tb-btn" style="flex:1;" onclick="saveCharacter()">Save Dossier</button>
-      <button class="tb-btn" style="background:rgba(200,50,50,0.1); border-color:rgba(200,50,50,0.5);" onclick="closeModal()">Cancel</button>
+    <div style="margin-bottom: 20px;"><label>Background / Lore</label><textarea id="f-lore" rows="6"></textarea></div>
+    <div style="margin-bottom: 20px;"><label>Additional Detail(s)</label><textarea id="f-details" rows="3"></textarea></div>
+    <div style="margin-bottom: 20px;"><label style="color:var(--gold3);">Brief Character Bio (High-Density Summary)</label><textarea id="f-brief" rows="4"></textarea></div>
+    <div style="margin-bottom: 30px;"><label>Link To Google Docs Page of Character</label><input type="text" id="f-link"></div>
+    <div style="display:flex; gap:15px;">
+      <button class="tb-btn" style="flex:1; padding: 15px;" onclick="saveCharacter()">Save to Archives</button>
+      <button class="tb-btn" style="background:rgba(200,50,50,0.1); border-color:rgba(200,50,50,0.5); flex: 0.5;" onclick="closeModal()">Discard</button>
     </div>
   </div>
 </div>
@@ -114,9 +119,7 @@ input, textarea { width: 100%; background: var(--ink3); border: 1px solid rgba(2
 let characters = JSON.parse(localStorage.getItem('dc_codex_v22')) || [];
 let currentId = null;
 
-function saveToStorage() {
-  localStorage.setItem('dc_codex_v22', JSON.stringify(characters));
-}
+function saveToStorage() { localStorage.setItem('dc_codex_v22', JSON.stringify(characters)); }
 
 function renderSidebar() {
   const query = document.getElementById('search').value.toLowerCase();
@@ -126,7 +129,7 @@ function renderSidebar() {
     .map(c => `
       <div class="char-item ${c.id === currentId ? 'selected' : ''}" onclick="selectChar('${c.id}')">
         <div class="ci-name">${c.first} ${c.surname}</div>
-        <div style="font-size:10px; opacity:0.6;">${c.alias || 'No Alias'}</div>
+        <div style="font-size:10px; opacity:0.5; font-family:'Crimson Pro';">${c.alias || '—'}</div>
       </div>
     `).join('');
 }
@@ -137,63 +140,13 @@ function selectChar(id) {
   document.getElementById('empty-state').style.display = 'none';
   document.getElementById('dossier-view').style.display = 'block';
   document.getElementById('v-name').textContent = `${c.first} ${c.surname}`;
-  document.getElementById('v-alias').textContent = c.alias ? `Known as: ${c.alias}` : '';
+  document.getElementById('v-alias').textContent = c.alias || 'Classified Identity';
   
   const field = (label, val) => val ? `<div class="v-field"><div class="v-label">${label}</div><div class="v-value">${val}</div></div>` : '';
-  const fullField = (label, val, extraClass = '') => val ? `<div class="v-field ${extraClass}" style="grid-column: 1 / -1;"><div class="v-label">${label}</div><div class="v-value">${val}</div></div>` : '';
+  const full = (label, val, content) => val ? `<div class="v-field full"><div class="v-label">${label}</div><div class="v-value">${content || val}</div></div>` : '';
 
   document.getElementById('v-content').innerHTML = `
     <div class="v-section">
-      <div class="v-section-title">◈ Narrative Lore & Identity</div>
+      <div class="v-section-title">◈ BIOGRAPHICAL DATA</div>
       <div class="v-grid">
-        ${field('Alignment', c.align)}
-        ${fullField('Full Background Lore', c.lore)}
-        ${fullField('Additional Detail(s)', c.details)}
-        ${fullField('Brief Character Bio:', c.brief, 'bio-highlight')}
-        ${fullField('Link To Google Docs Page of Character', c.link ? `<a href="${c.link}" target="_blank" style="color:var(--gold2);">Open Document →</a>` : 'Not Linked')}
-      </div>
-    </div>
-  `;
-  renderSidebar();
-}
-
-function openModal() { document.getElementById('modal').style.display = 'flex'; }
-function closeModal() { document.getElementById('modal').style.display = 'none'; }
-
-function saveCharacter() {
-  const data = {
-    id: currentId || Date.now().toString(),
-    first: document.getElementById('f-first').value,
-    surname: document.getElementById('f-surname').value,
-    alias: document.getElementById('f-alias').value,
-    align: document.getElementById('f-align').value,
-    lore: document.getElementById('f-lore').value,
-    details: document.getElementById('f-details').value,
-    brief: document.getElementById('f-brief').value,
-    link: document.getElementById('f-link').value
-  };
-
-  const index = characters.findIndex(x => x.id === data.id);
-  if (index > -1) characters[index] = data;
-  else characters.push(data);
-
-  saveToStorage();
-  closeModal();
-  renderSidebar();
-  selectChar(data.id);
-}
-
-function exportData() {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(characters));
-  const downloadAnchor = document.createElement('a');
-  downloadAnchor.setAttribute("href", dataStr);
-  downloadAnchor.setAttribute("download", "dc_codex_export.json");
-  document.body.appendChild(downloadAnchor);
-  downloadAnchor.click();
-  downloadAnchor.remove();
-}
-
-renderSidebar();
-</script>
-</body>
-</html>
+        ${field('Moral Alignment', c.align)}
